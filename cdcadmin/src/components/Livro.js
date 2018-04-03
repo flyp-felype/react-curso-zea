@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import InputCustomizado from './InputCustomizado';
 import PubSub from 'pubsub-js';
 import TratadorErros from './TratadorErros';
-class FormularioLivro extends Component {
 
+class FormularioLivro extends Component {
     constructor() {
         super();
         this.state = { titulo: '', preco: '', autorId: '' }
@@ -31,16 +31,10 @@ class FormularioLivro extends Component {
             });
     }
 
-    setTitulo(evento) {
-        this.setState({ titulo: evento.target.value });
-    }
-
-    setPreco(evento) {
-        this.setState({ preco: evento.target.value });
-    }
-
-    setAutorId(evento) {
-        this.setState({ autorId: evento.target.value });
+    SalvaAlteracao(inputName, evento){
+        let campo = {};
+        campo[inputName] = evento.target.value;
+        this.setState(campo);
     }
 
     render() {
@@ -52,8 +46,8 @@ class FormularioLivro extends Component {
             <div className="pure-form pure-form-aligned">
                 <form className="pure-form pure-form-aligned" onSubmit={this.enviaForm} >
                 <div className="pure-control-group">
-                    <InputCustomizado id="titulo" type="text" name="Titulo" value={this.state.titulo} onChange={this.setTitulo} />
-                    <InputCustomizado id="preco" type="text" name="Preço" value={this.state.preco} onChange={this.setPreco} />
+                    <InputCustomizado id="titulo" type="text" name="Titulo" value={this.state.titulo} onChange={this.SalvaAlteracao.bind(this, 'nome')} />
+                    <InputCustomizado id="preco" type="text" name="Preço" value={this.state.preco}  onChange={this.SalvaAlteracao.bind(this, 'preco')}  />
                     <div className="pure-control-group">
                         <label htmlFor="autorId">Autor</label>
                     <select name="autorId" onChange={this.setAutorId}>
